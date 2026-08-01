@@ -7,5 +7,9 @@ from django.urls import path
 from student.views import StudentOnboardingCreateView
 
 urlpatterns = [
-    path('api/student/', StudentOnboardingCreateView.as_view(), name='student-onboarding-create'),
+    path(
+        "api/student/",
+        StudentOnboardingCreateView.as_view(),
+        name="student-onboarding-create",
+    ),
 ]

@@ -9,13 +9,14 @@ from rest_framework.response import Response
 from student.models import StudentOnboarding
 from student.serializers import StudentOnboardingSerializer
 
+
 class StudentOnboardingCreateView(generics.CreateAPIView):
     """
     API View to handle student onboarding registration requests.
     Accepts POST requests, validates the input parameters using StudentOnboardingSerializer,
     and creates a new StudentOnboarding record.
     """
-    
+
     queryset = StudentOnboarding.objects.all()
     serializer_class = StudentOnboardingSerializer
 
@@ -27,7 +28,7 @@ class StudentOnboardingCreateView(generics.CreateAPIView):
         dictionary of field validation failures on error.
         """
         request_serializer = self.get_serializer(data=http_request.data)
-        
+
         # Perform validation; if it fails, it will raise serializers.ValidationError
         # which DRF automatically translates into HTTP 400 Bad Request response.
         if request_serializer.is_valid(raise_exception=True):
@@ -36,5 +37,5 @@ class StudentOnboardingCreateView(generics.CreateAPIView):
             return Response(
                 request_serializer.data,
                 status=status.HTTP_201_CREATED,
-                headers=response_headers
+                headers=response_headers,
             )
