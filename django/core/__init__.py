@@ -1,4 +1,6 @@
-# Project Name: HabotConnect Project
-# Task Name: Django Core Project Initialization
-# Author: Akash Malviya
-# Contact: akashmalviya244@gmail.com | 9753072646
+# Full Name: Akash Malviya
+# Contact: akashmalviya244@gmail.com
+# Phone: 9753072646
+# Project: HabotConnect Junior Cloud and DevOps Engineer
+# Submission Date: 01/08/2026
+# Task: Task 3 - Django Core Package Initialisation

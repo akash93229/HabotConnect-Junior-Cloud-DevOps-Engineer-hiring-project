@@ -1,7 +1,9 @@
-# Project Name: HabotConnect Project
-# Task Name: Terraform Infrastructure Main Definition
-# Author: Akash Malviya
-# Contact: akashmalviya244@gmail.com | 9753072646
+# Full Name: Akash Malviya
+# Contact: akashmalviya244@gmail.com
+# Phone: 9753072646
+# Project: HabotConnect Junior Cloud and DevOps Engineer
+# Submission Date: 01/08/2026
+# Task: Task 1 - Terraform Cloud Shell Execution Proof
 
 terraform {
   required_version = ">= 1.0.0"

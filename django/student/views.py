@@ -1,7 +1,9 @@
-# Project Name: HabotConnect Project
-# Task Name: Student Onboarding Views Definition
-# Author: Akash Malviya
-# Contact: akashmalviya244@gmail.com | 9753072646
+# Full Name: Akash Malviya
+# Contact: akashmalviya244@gmail.com
+# Phone: 9753072646
+# Project: HabotConnect Junior Cloud and DevOps Engineer
+# Submission Date: 01/08/2026
+# Task: Task 3 - Django Student Onboarding API View
 
 from rest_framework import generics, status
 from rest_framework.response import Response
