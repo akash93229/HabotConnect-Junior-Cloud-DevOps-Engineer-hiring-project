@@ -1,0 +1,62 @@
+[
+  {
+    "description": "Full legal name of the student",
+    "mode": "REQUIRED",
+    "name": "student_name",
+    "type": "STRING"
+  },
+  {
+    "description": "Age of the student",
+    "mode": "REQUIRED",
+    "name": "student_age",
+    "type": "INTEGER"
+  },
+  {
+    "description": "Contact email address",
+    "mode": "REQUIRED",
+    "name": "student_email_address",
+    "type": "STRING"
+  },
+  {
+    "description": "10 digit phone number",
+    "mode": "REQUIRED",
+    "name": "student_phone_number",
+    "type": "STRING"
+  },
+  {
+    "description": "Parental/Guardian consent status",
+    "mode": "REQUIRED",
+    "name": "guardian_consent_given",
+    "type": "BOOLEAN"
+  },
+  {
+    "description": "Current school or college name",
+    "mode": "REQUIRED",
+    "name": "educational_institution_name",
+    "type": "STRING"
+  },
+  {
+    "description": "Full name of parent/guardian",
+    "mode": "REQUIRED",
+    "name": "parent_guardian_full_name",
+    "type": "STRING"
+  },
+  {
+    "description": "Special accommodations request details",
+    "mode": "NULLABLE",
+    "name": "learning_difficulty_description",
+    "type": "STRING"
+  },
+  {
+    "description": "Regional administration authority name",
+    "mode": "REQUIRED",
+    "name": "local_support_authority_region",
+    "type": "STRING"
+  },
+  {
+    "description": "Record insertion timestamp",
+    "mode": "REQUIRED",
+    "name": "record_created_at_timestamp",
+    "type": "TIMESTAMP"
+  }
+]

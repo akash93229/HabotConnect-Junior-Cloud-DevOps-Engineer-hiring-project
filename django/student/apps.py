@@ -1,7 +1,7 @@
 # Project Name: HabotConnect Project
 # Task Name: Student App Configuration
-# Author: <YOUR FULL NAME>
-# Contact: <YOUR EMAIL / PHONE>
+# Author: Akash Malviya
+# Contact: akashmalviya244@gmail.com | 9753072646
 
 from django.apps import AppConfig
 

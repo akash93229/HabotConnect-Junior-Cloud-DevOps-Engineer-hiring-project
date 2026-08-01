@@ -1,4 +1,4 @@
 # Project Name: HabotConnect Project
 # Task Name: Django Core Project Initialization
-# Author: <YOUR FULL NAME>
-# Contact: <YOUR EMAIL / PHONE>
+# Author: Akash Malviya
+# Contact: akashmalviya244@gmail.com | 9753072646

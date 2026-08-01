@@ -1,7 +1,7 @@
 # Project Name: HabotConnect Project
 # Task Name: Django ASGI Server Configuration
-# Author: <YOUR FULL NAME>
-# Contact: <YOUR EMAIL / PHONE>
+# Author: Akash Malviya
+# Contact: akashmalviya244@gmail.com | 9753072646
 
 import os
 from django.core.asgi import get_asgi_application

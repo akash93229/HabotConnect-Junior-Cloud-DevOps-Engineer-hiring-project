@@ -18,7 +18,7 @@ provider "google" {
   region  = var.google_cloud_region
 }
 
-# D0 Raw Landing bucket -- public access locked down, versioning on
+# 1. D0 Raw Landing GCS Bucket with strict settings
 resource "google_storage_bucket" "raw_landing_bucket" {
   name                        = var.raw_landing_bucket_name
   location                    = var.google_cloud_region
@@ -30,7 +30,6 @@ resource "google_storage_bucket" "raw_landing_bucket" {
     enabled = true
   }
 
-  # auto-delete objects after 90 days to avoid stale data accumulation
   lifecycle_rule {
     condition {
       age = 90
@@ -41,6 +40,7 @@ resource "google_storage_bucket" "raw_landing_bucket" {
   }
 }
 
+# Strict IAM Policy binding for D0 Raw Landing GCS Bucket
 resource "google_storage_bucket_iam_binding" "raw_landing_bucket_admin_binding" {
   bucket = google_storage_bucket.raw_landing_bucket.name
   role   = "roles/storage.objectAdmin"
@@ -56,13 +56,13 @@ resource "google_storage_bucket_iam_binding" "raw_landing_bucket_admin_binding" 
   }
 }
 
-# D1 Staged/Enforced BigQuery dataset
+# 2. D1 Staged/Enforced BigQuery Dataset
 resource "google_bigquery_dataset" "staged_dataset" {
   dataset_id                  = var.staged_dataset_id
   friendly_name               = "Staged Onboarding Dataset"
   description                 = "Contains validated and structured student onboarding details."
   location                    = var.google_cloud_region
-  default_table_expiration_ms = 31536000000 # 365 days
+  default_table_expiration_ms = 31536000000 # 365 Days
 
   labels = {
     env = "staging"
@@ -79,6 +79,7 @@ resource "google_bigquery_dataset" "staged_dataset" {
   }
 }
 
+# BigQuery Table inside D1 Staged/Enforced Dataset
 resource "google_bigquery_table" "student_onboarding_table" {
   dataset_id          = google_bigquery_dataset.staged_dataset.dataset_id
   table_id            = "student_onboarding_table"
@@ -150,7 +151,7 @@ resource "google_bigquery_table" "student_onboarding_table" {
 EOF
 }
 
-# RLS policy -- London support staff only see London rows
+# Row-Level Security (RLS) Access Policy for the BigQuery Table
 resource "google_bigquery_row_access_policy" "regional_support_rls_policy" {
   project          = var.google_cloud_project_id
   dataset_id       = google_bigquery_dataset.staged_dataset.dataset_id

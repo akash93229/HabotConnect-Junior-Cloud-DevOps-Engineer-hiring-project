@@ -1,11 +1,9 @@
 # Project Name: HabotConnect Project
 # Task Name: Poka-Yoke Fail-Closed CI/CD Pipeline
-# Author: <YOUR FULL NAME>
-# Contact: <YOUR EMAIL / PHONE>
+# Author: Akash Malviya
+# Contact: akashmalviya244@gmail.com | 9753072646
 
-# Poka-Yoke (Mistake-proofing) Fail-Closed build gate.
-# This workflow runs linting and security scans on push/PR, halting immediately (failing closed)
-# upon any error or secret leak detection, ensuring no invalid code or credential is deployed.
+# Poka-Yoke fail-closed gate -- halts on any lint error or secret detection.
 
 name: Poka-Yoke Build Gate
 
@@ -19,42 +17,33 @@ jobs:
   code_quality_and_security_gate:
     name: Lint, Format, and Security Secret Scan
     runs-on: ubuntu-latest
-    
+
     steps:
-      # Step 1: Checkout the source repository code
       - name: Checkout Code Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Required for Gitleaks to scan commit history
+          fetch-depth: 0  # needed for gitleaks full history scan
 
-      # Step 2: Set up Python 3.12 environment
       - name: Set up Python 3.12
         uses: actions/setup-python@v4
         with:
           python-version: '3.12'
 
-      # Step 3: Install development dependencies
       - name: Install Development Dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install django djangorestframework black flake8
 
-      # Step 4: Run Black formatting check (formatting gate)
       - name: Check Code Formatting (Black)
         run: |
           black --check .
 
-      # Step 5: Run Flake8 linting checks (lint gate)
       - name: Lint Source Code (Flake8)
         run: |
-          # Enforce strict syntax checks and PEP8 compliance
           flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      # Step 6: Run Gitleaks secret scanner (security gate)
-      # Uses the open-source Gitleaks CLI binary directly instead of the
-      # gitleaks-action (which requires a paid GITLEAKS_LICENSE for public repos).
-      # The .gitleaks.toml config at the repo root provides the allowlist.
+      # using CLI binary directly -- gitleaks-action needs a paid license for public repos
       - name: Install Gitleaks CLI
         run: |
           wget -q https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz
@@ -64,13 +53,8 @@ jobs:
 
       - name: Scan for Hardcoded Credentials (Gitleaks)
         run: |
-          echo "Running Gitleaks secret scan across the full repository..."
           gitleaks detect --source=. --config=.gitleaks.toml --verbose
-          echo "Gitleaks scan passed -- no hardcoded secrets detected."
 
-      # Step 7: Build success verification
       - name: Validate Gate Clear
         run: |
-          echo "=================================================="
           echo "BUILD PASSED -- SAFE TO DEPLOY"
-          echo "=================================================="

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # Project Name: HabotConnect Project
 # Task Name: Django Administrative Entrypoint
-# Author: <YOUR FULL NAME>
-# Contact: <YOUR EMAIL / PHONE>
+# Author: Akash Malviya
+# Contact: akashmalviya244@gmail.com | 9753072646
 """Django's command-line utility for administrative tasks."""
 
 import os
