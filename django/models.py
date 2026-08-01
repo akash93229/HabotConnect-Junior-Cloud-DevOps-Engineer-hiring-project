@@ -1,3 +1,6 @@
-from django.db import models
+# Project Name: HabotConnect Project
+# Task Name: Django Models Wrapper
+# Author: <YOUR FULL NAME>
+# Contact: <YOUR EMAIL / PHONE>
 
-# Define your models here.
+from student.models import *

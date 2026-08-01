@@ -1,8 +1,44 @@
 [
   {
-    "id": 1,
-    "name": "John Doe",
-    "email": "john.doe@example.com",
-    "course": "Cloud Engineering"
+    "description": "Payload 1: Fully Valid Onboarding Request",
+    "payload": {
+      "name": "Akash Patel",
+      "age": 14,
+      "email": "akash.patel@gmail.com",
+      "phone": "9999999999",
+      "consent": true,
+      "school_name": "Delhi Public School",
+      "parent_guardian_name": "Rajesh Patel",
+      "lsa_region": "New Delhi",
+      "learning_difficulty_description": "None"
+    }
+  },
+  {
+    "description": "Payload 2: Invalid Onboarding Request due to Age (Age is below minimum limit of 5)",
+    "payload": {
+      "name": "Siddharth Kumar",
+      "age": 3,
+      "email": "siddharth.kumar@gmail.com",
+      "phone": "9876543210",
+      "consent": true,
+      "school_name": "Greenwood High School",
+      "parent_guardian_name": "Amit Kumar",
+      "lsa_region": "Bangalore",
+      "learning_difficulty_description": "Dysgraphia accommodations requested"
+    }
+  },
+  {
+    "description": "Payload 3: Invalid Onboarding Request due to Missing Parental/Guardian Consent (consent must be True)",
+    "payload": {
+      "name": "Anya Sharma",
+      "age": 16,
+      "email": "anya.sharma@gmail.com",
+      "phone": "9123456789",
+      "consent": false,
+      "school_name": "The Heritage School",
+      "parent_guardian_name": "Sunita Sharma",
+      "lsa_region": "Gurgaon",
+      "learning_difficulty_description": ""
+    }
   }
 ]

@@ -1,6 +1,4 @@
 # Project Name: HabotConnect Project
-# Task Name: Django Serializers Wrapper
+# Task Name: Student App Initialization
 # Author: <YOUR FULL NAME>
 # Contact: <YOUR EMAIL / PHONE>
-
-from student.serializers import *

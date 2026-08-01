@@ -1,3 +1,6 @@
-from django.shortcuts import render
+# Project Name: HabotConnect Project
+# Task Name: Django Views Wrapper
+# Author: <YOUR FULL NAME>
+# Contact: <YOUR EMAIL / PHONE>
 
-# Define your views here.
+from student.views import *
