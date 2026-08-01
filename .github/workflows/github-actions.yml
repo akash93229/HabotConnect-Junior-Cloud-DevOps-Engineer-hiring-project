@@ -52,12 +52,21 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       # Step 6: Run Gitleaks secret scanner (security gate)
+      # Uses the open-source Gitleaks CLI binary directly instead of the
+      # gitleaks-action (which requires a paid GITLEAKS_LICENSE for public repos).
+      # The .gitleaks.toml config at the repo root provides the allowlist.
+      - name: Install Gitleaks CLI
+        run: |
+          wget -q https://github.com/gitleaks/gitleaks/releases/download/v8.21.2/gitleaks_8.21.2_linux_x64.tar.gz
+          tar -xzf gitleaks_8.21.2_linux_x64.tar.gz
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
+
       - name: Scan for Hardcoded Credentials (Gitleaks)
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # Force build failure if leaks are found
-          GITLEAKS_LICENSE: ""
+        run: |
+          echo "Running Gitleaks secret scan across the full repository..."
+          gitleaks detect --source=. --config=.gitleaks.toml --verbose
+          echo "Gitleaks scan passed -- no hardcoded secrets detected."
 
       # Step 7: Build success verification
       - name: Validate Gate Clear

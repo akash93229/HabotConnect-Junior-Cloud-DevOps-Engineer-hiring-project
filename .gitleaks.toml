@@ -1,0 +1,22 @@
+# Project Name: HabotConnect Project
+# Task Name: Gitleaks Secret Scanner Allowlist Configuration
+# Author: <YOUR FULL NAME>
+# Contact: <YOUR EMAIL / PHONE>
+
+# Gitleaks allowlist configuration
+# The django-insecure-* key in settings.py is a standard Django development
+# placeholder that is explicitly NOT used in production. The actual production
+# key is loaded from the DJANGO_SECRET_KEY environment variable.
+# This allowlist tells Gitleaks to ignore this specific known safe entry.
+
+title = "HabotConnect Gitleaks Allowlist Configuration"
+
+[allowlist]
+  description = "Allowlist for known safe development-only secrets"
+  paths = [
+    '''\.terraform\.lock\.hcl$''',
+  ]
+  regexTarget = "match"
+  regexes = [
+    '''django-insecure-testing-key-for-habotconnect-onboarding-system''',
+  ]
