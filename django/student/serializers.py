@@ -82,9 +82,7 @@ class StudentOnboardingSerializer(serializers.ModelSerializer):
 
     def validate_phone(self, value):
         if len(value) != 10 or not value.isdigit():
-            raise serializers.ValidationError(
-                "Phone number must be exactly 10 digits."
-            )
+            raise serializers.ValidationError("Phone number must be exactly 10 digits.")
         return value
 
     def validate(self, attrs):
@@ -95,7 +93,9 @@ class StudentOnboardingSerializer(serializers.ModelSerializer):
         if not name:
             errors["name"] = "The name field is required and cannot be empty."
         elif len(name) < 2 or len(name) > 100:
-            errors["name"] = f"Name must be between 2 and 100 characters (got {len(name)})."
+            errors["name"] = (
+                f"Name must be between 2 and 100 characters (got {len(name)})."
+            )
 
         age = attrs.get("student_age")
         if age is None:
@@ -127,7 +127,9 @@ class StudentOnboardingSerializer(serializers.ModelSerializer):
             errors["school_name"] = "The school_name field is required."
 
         if not attrs.get("parent_guardian_full_name", ""):
-            errors["parent_guardian_name"] = "The parent_guardian_name field is required."
+            errors["parent_guardian_name"] = (
+                "The parent_guardian_name field is required."
+            )
 
         if not attrs.get("local_support_authority_region", ""):
             errors["lsa_region"] = "The lsa_region field is required."
