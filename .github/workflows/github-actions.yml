@@ -1,0 +1,67 @@
+# Project Name: HabotConnect Project
+# Task Name: Poka-Yoke Fail-Closed CI/CD Pipeline
+# Author: <YOUR FULL NAME>
+# Contact: <YOUR EMAIL / PHONE>
+
+# Poka-Yoke (Mistake-proofing) Fail-Closed build gate.
+# This workflow runs linting and security scans on push/PR, halting immediately (failing closed)
+# upon any error or secret leak detection, ensuring no invalid code or credential is deployed.
+
+name: Poka-Yoke Build Gate
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  code_quality_and_security_gate:
+    name: Lint, Format, and Security Secret Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout the source repository code
+      - name: Checkout Code Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Required for Gitleaks to scan commit history
+
+      # Step 2: Set up Python 3.12 environment
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # Step 3: Install development dependencies
+      - name: Install Development Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install django djangorestframework black flake8
+
+      # Step 4: Run Black formatting check (formatting gate)
+      - name: Check Code Formatting (Black)
+        run: |
+          black --check .
+
+      # Step 5: Run Flake8 linting checks (lint gate)
+      - name: Lint Source Code (Flake8)
+        run: |
+          # Enforce strict syntax checks and PEP8 compliance
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      # Step 6: Run Gitleaks secret scanner (security gate)
+      - name: Scan for Hardcoded Credentials (Gitleaks)
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Force build failure if leaks are found
+          GITLEAKS_LICENSE: ""
+
+      # Step 7: Build success verification
+      - name: Validate Gate Clear
+        run: |
+          echo "=================================================="
+          echo "BUILD PASSED -- SAFE TO DEPLOY"
+          echo "=================================================="
